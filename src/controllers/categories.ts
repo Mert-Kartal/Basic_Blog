@@ -8,11 +8,6 @@ interface categoryReqParam {
   id: string;
 }
 
-interface ErrorResponse {
-  error: string;
-  code: string;
-}
-
 export default class controller {
   static create_category = async (
     req: Request<{}, {}, categoryReqBody>,
