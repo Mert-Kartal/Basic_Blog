@@ -26,11 +26,12 @@ export default class model {
 
       if (existing_category) {
         if (existing_category.deleted_at) {
-          return await db("category")
+          const re_create_category = await db("category")
             .where({ name: category_name })
             .update({ deleted_at: null, created_at: new Date() })
-            .returning("*")
-            .first();
+            .returning("*");
+
+          return re_create_category[0];
         }
         return {
           error: "Category already exists",
@@ -140,12 +141,12 @@ export default class model {
   };
 
   static delete_categories = async (
-    category_id: number
+    category_name: string
   ): Promise<CategoryResponse> => {
     try {
       const existing_category = await db("category")
-        .select("ıd", "deleted_at")
-        .where({ ıd: category_id })
+        .select("name", "deleted_at")
+        .where({ name: category_name })
         .first();
 
       if (!existing_category) {
@@ -163,7 +164,7 @@ export default class model {
       }
 
       const deleting_category = await db("category")
-        .where({ ıd: category_id })
+        .where({ name: category_name })
         .update({ deleted_at: new Date() })
         .returning("*");
 

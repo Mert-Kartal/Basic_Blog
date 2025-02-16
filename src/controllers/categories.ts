@@ -138,17 +138,16 @@ export default class controller {
     req: Request<categoryReqParam>,
     res: Response
   ) => {
-    const { id } = req.params;
-    const category_id = +id;
+    const { name } = req.body;
     try {
-      if (isNaN(category_id)) {
+      if (!name) {
         res.status(400).json({
-          message: `Invalid ID format`,
-          code: "INVALID_ID",
+          message: `Missing DATA`,
+          code: "MISSING_DATA",
         });
       }
 
-      const deleting_category = await model.delete_categories(category_id);
+      const deleting_category = await model.delete_categories(name);
 
       if ("error" in deleting_category) {
         res.status(400).json({
