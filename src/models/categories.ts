@@ -1,7 +1,7 @@
 import db from "src/db";
 
 interface Category {
-  id: number;
+  ıd: number;
   name: string;
   created_at: Date;
   deleted_at?: Date | null;
@@ -67,12 +67,6 @@ export default class model {
     category_id: number
   ): Promise<CategoryResponse> => {
     try {
-      if (isNaN(category_id)) {
-        return {
-          error: "ID not found",
-          code: "INVALID_ID",
-        };
-      }
       const existing_category = await db("category")
         .select("ıd", "name")
         .where({ ıd: category_id })
