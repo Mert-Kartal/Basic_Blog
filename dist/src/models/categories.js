@@ -8,13 +8,16 @@ export default class model {
                 .first();
             if (existing_category) {
                 if (existing_category.deleted_at) {
-                    return await db("category")
+                    const re_create_category = await db("category")
                         .where({ name: category_name })
                         .update({ deleted_at: null, created_at: new Date() })
-                        .returning("*")
-                        .first();
+                        .returning("*");
+                    return re_create_category[0];
                 }
-                return "Bu kategori bulunmaktadır";
+                return {
+                    error: "Category already exists",
+                    code: "CATEGORY_EXISTS",
+                };
             }
             const new_category = await db("category")
                 .insert({
@@ -25,86 +28,112 @@ export default class model {
             return new_category[0];
         }
         catch (error) {
-            throw new Error("bir şeyler ters gitti:" + error.message);
+            throw new Error(error.message);
         }
     };
     static get_categories = async () => {
         try {
             const all_categories = await db("category")
-                .select("id", "name", "created_at")
+                .select("ıd", "name", "created_at")
                 .whereNull("deleted_at")
                 .returning("*");
             return all_categories;
         }
         catch (error) {
-            throw new Error("bir şeyler ters gitti:" + error.message);
+            throw new Error(error.message);
         }
     };
     static get_categories_id = async (category_id) => {
         try {
-            if (isNaN(category_id)) {
-                return "ID bulunmamakta";
-            }
             const existing_category = await db("category")
-                .select("id", "name")
-                .where({ id: category_id })
+                .select("ıd", "name")
+                .where({ ıd: category_id })
                 .whereNull("deleted_at")
                 .first();
             if (!existing_category) {
-                return "Yanlış ID";
+                return {
+                    error: "Category not found",
+                    code: "CATEGORY_NOT_FOUND",
+                };
             }
             return existing_category;
         }
         catch (error) {
-            throw new Error("bir şeyler ters gitti:" + error.message);
+            throw new Error(error.message);
         }
     };
     static update_categories = async (category_id, category_name) => {
         try {
             const existing_category = await db("category")
-                .select("id", "name")
-                .where({ id: category_id })
+                .select("ıd", "name")
+                .where({ ıd: category_id })
                 .whereNull("deleted_at")
                 .first();
             if (!existing_category) {
-                return "Yanlış ID";
+                return {
+                    error: "Category not found",
+                    code: "CATEGORY_NOT_FOUND",
+                };
             }
             if (existing_category.name === category_name) {
-                return "Isim aynı, değişiklik yapılmaz";
+                return {
+                    error: "Name is same, no changes needed",
+                    code: "NO_CHANGES_NEEDED",
+                };
             }
-            return await db("category")
-                .where({ id: category_id })
-                .update({ name: category_name })
-                .returning("*")
+            const existing_category_name = await db("category")
+                .select("ıd", "name")
+                .where({ name: category_name })
+                .whereNull("deleted_at")
                 .first();
+            if (existing_category_name) {
+                return {
+                    error: "This category already exist",
+                    code: "NO_CHANGES_MADE",
+                };
+            }
+            const updated_category = await db("category")
+                .where({ ıd: category_id })
+                .update({ name: category_name })
+                .returning("*");
+            return updated_category[0];
         }
         catch (error) {
-            throw new Error("bir şeyler ters gitti:" + error.message);
+            throw new Error(error.message);
         }
     };
-    static delete_categories = async (category_id) => {
+    static delete_categories = async (category_name) => {
         try {
             const existing_category = await db("category")
-                .select("id", "deleted_at")
-                .where({ id: category_id })
+                .select("name", "deleted_at")
+                .where({ name: category_name })
                 .first();
             if (!existing_category) {
-                return "Hatalı işlem";
+                return {
+                    error: "Category not found",
+                    code: "CATEGORY_NOT_FOUND",
+                };
             }
             if (existing_category.deleted_at !== null) {
-                return { error: "Bu kategori zaten silinmiş" };
+                return {
+                    error: "This category is already deleted",
+                    code: "ALREADY_DELETED",
+                };
             }
             const deleting_category = await db("category")
-                .where({ id: category_id })
+                .where({ name: category_name })
                 .update({ deleted_at: new Date() })
                 .returning("*");
             if (deleting_category.length === 0) {
-                return "İşlem başarısız";
+                return {
+                    error: "Operation failed",
+                    code: "DELETE_FAILED",
+                };
             }
-            return deleting_category;
+            return deleting_category[0];
         }
         catch (error) {
-            throw new Error("bir şeyler ters gitti:" + error.message);
+            throw new Error(error.message);
         }
     };
 }
