@@ -107,7 +107,7 @@ export default class model {
     post_id: number,
     content: string,
     commenter_name: string
-  ) => {
+  ):Promise<Comment> => {
     try {
       const exist_post = await db("post")
         .select("*")
