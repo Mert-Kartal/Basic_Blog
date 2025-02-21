@@ -14,13 +14,13 @@ export default class controller {
     res: Response
   ) => {
     const { name } = req.body;
-    if (!name) {
-      res.status(400).json({
-        message: `Missing Data`,
-        code: "MISSING_DATA",
-      });
-    }
     try {
+      if (!name) {
+        res.status(400).json({
+          message: `Missing Data`,
+          code: "MISSING_DATA",
+        });
+      }
       const create_category = await model.create_category(name);
 
       console.log(name);
@@ -65,10 +65,18 @@ export default class controller {
     req: Request<categoryReqParam>,
     res: Response
   ) => {
-    const { id } = req.params;
-    const category_id = +id;
+    const id = req.params.id;
+    console.log(id);
     try {
-      if (isNaN(category_id)) {
+      if (id === ":id") {
+        res.status(400).json({
+          message: `Missing ID`,
+          code: "MISSING_ID",
+        });
+      }
+
+      const category_id = +id;
+      if (isNaN(+category_id)) {
         res.status(400).json({
           message: `Invalid ID`,
           code: "INVALID_ID",
@@ -97,22 +105,23 @@ export default class controller {
     req: Request<categoryReqParam, {}, categoryReqBody>,
     res: Response
   ) => {
-    const { id } = req.params;
+    const id = req.params.id;
     const { name } = req.body;
-    const category_id = +id;
+
     try {
-      if (!id || !name) {
+      if (id === ":id" || !name) {
         res.status(400).json({
           message: `Missing Data`,
           code: "MISSING_DATA",
         });
       }
-      if (isNaN(category_id)) {
+      if (isNaN(+id)) {
         res.status(400).json({
           message: `Invalid ID format`,
           code: "INVALID_ID",
         });
       }
+      const category_id = +id;
 
       const update_category = await model.update_categories(category_id, name);
 
@@ -139,6 +148,7 @@ export default class controller {
     res: Response
   ) => {
     const { name } = req.body;
+
     try {
       if (!name) {
         res.status(400).json({

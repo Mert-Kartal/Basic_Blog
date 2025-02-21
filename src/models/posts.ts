@@ -1,8 +1,8 @@
 import db from "src/db";
 
 interface Post_Content {
-  ıd: number;
-  category_ıd: number;
+  id: number;
+  category_id: number;
   title: string;
   content: string;
   created_at: Date;
@@ -21,12 +21,12 @@ export default class model {
   static create_post = async (
     post_title: string,
     post_content: string,
-    category_ıd: number
+    category_id: number
   ): Promise<Post_Response> => {
     try {
       const exist_category = await db("category")
         .select("*")
-        .where({ ıd: category_ıd })
+        .where({ id: category_id })
         .first();
 
       if (!exist_category) {
@@ -43,9 +43,22 @@ export default class model {
         };
       }
 
+      const exist_post = await db("post")
+        .select("*")
+        .where({ title: post_title, content: post_content, category_id })
+        .first();
+
+      if (exist_post && exist_post.deleted_at) {
+        const re_create_post = await db("post")
+          .where({ title: post_title, content: post_content, category_id })
+          .update({ deleted_at: null })
+          .returning("*");
+
+        return re_create_post[0];
+      }
       const new_post = await db("post")
         .insert({
-          category_ıd,
+          category_id,
           title: post_title,
           content: post_content,
           created_at: new Date(),
@@ -59,10 +72,7 @@ export default class model {
   };
   static get_posts = async (): Promise<Post_Content[]> => {
     try {
-      const all_post = await db("post")
-        .select("*")
-        .whereNull("deleted_at")
-        .returning("*");
+      const all_post = await db("post").select("*").whereNull("deleted_at");
 
       return all_post;
     } catch (error) {
@@ -74,9 +84,8 @@ export default class model {
       const exist_post = await db("post")
         .select("*")
         .where({
-          ıd: post_id,
+          id: post_id,
         })
-        .returning("*")
         .first();
 
       if (!exist_post) {
@@ -106,9 +115,8 @@ export default class model {
       const exist_post = await db("post")
         .select("*")
         .where({
-          ıd: post_id,
+          id: post_id,
         })
-        .returning("*")
         .first();
 
       if (!exist_post) {
@@ -126,9 +134,9 @@ export default class model {
       }
 
       const update_post = await db("post")
-        .where({ ıd: post_id })
+        .where({ id: post_id })
         .update({
-          category_ıd: category_id,
+          category_id: category_id,
           title: post_title,
           content: post_content,
         })
@@ -144,7 +152,6 @@ export default class model {
       const exist_post = await db("post")
         .select("*")
         .where({ title: post_title })
-        .returning("*")
         .first();
 
       if (!exist_post) {

@@ -1,7 +1,7 @@
 import db from "src/db";
 
 interface Category {
-  ıd: number;
+  id: number;
   name: string;
   created_at: Date;
   deleted_at?: Date | null;
@@ -50,26 +50,24 @@ export default class model {
       throw new Error((error as Error).message);
     }
   };
-
   static get_categories = async (): Promise<Category[]> => {
     try {
       const all_categories = await db("category")
-        .select("ıd", "name", "created_at")
-        .whereNull("deleted_at")
-        .returning("*");
+        .select("id", "name", "created_at")
+        .whereNull("deleted_at");
+
       return all_categories;
     } catch (error) {
       throw new Error((error as Error).message);
     }
   };
-
   static get_categories_id = async (
     category_id: number
   ): Promise<CategoryResponse> => {
     try {
       const existing_category = await db("category")
-        .select("ıd", "name")
-        .where({ ıd: category_id })
+        .select("id", "name")
+        .where({ id: category_id })
         .whereNull("deleted_at")
         .first();
 
@@ -84,15 +82,14 @@ export default class model {
       throw new Error((error as Error).message);
     }
   };
-
   static update_categories = async (
     category_id: number,
     category_name: string
   ): Promise<CategoryResponse> => {
     try {
       const existing_category = await db("category")
-        .select("ıd", "name")
-        .where({ ıd: category_id })
+        .select("id", "name")
+        .where({ id: category_id })
         .whereNull("deleted_at")
         .first();
 
@@ -111,7 +108,7 @@ export default class model {
       }
 
       const existing_category_name = await db("category")
-        .select("ıd", "name")
+        .select("id", "name")
         .where({ name: category_name })
         .whereNull("deleted_at")
         .first();
@@ -124,7 +121,7 @@ export default class model {
       }
 
       const updated_category = await db("category")
-        .where({ ıd: category_id })
+        .where({ id: category_id })
         .update({ name: category_name })
         .returning("*");
 
@@ -133,7 +130,6 @@ export default class model {
       throw new Error((error as Error).message);
     }
   };
-
   static delete_categories = async (
     category_name: string
   ): Promise<CategoryResponse> => {

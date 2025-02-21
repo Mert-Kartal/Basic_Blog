@@ -1,12 +1,12 @@
-import express, { RequestHandler } from "express";
+import express from "express";
 import controller from "src/controllers/categories";
 
 const router = express.Router();
 
-router.post("/", controller.create_category as unknown as RequestHandler);
-router.get("/", controller.get_category as unknown as RequestHandler);
-router.get("/:id", controller.get_category_id as unknown as RequestHandler);
-router.patch("/:id", controller.update_category as unknown as RequestHandler);
-router.delete("/", controller.delete_category as unknown as RequestHandler);
+router.post("/", controller.create_category);
+router.get("/", controller.get_category);
+router.get("/:id", controller.get_category_id);
+router.patch("/:id", controller.update_category);
+router.delete("/", controller.delete_category);
 
 export { router };

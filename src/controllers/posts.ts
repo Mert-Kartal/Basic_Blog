@@ -15,20 +15,20 @@ export default class controller {
   ) => {
     const { title, content, category_id } = req.body;
 
-    if (!title || !content || !category_id) {
-      res.status(400).json({
-        message: `Missing Data`,
-        code: "MISSING_DATA",
-      });
-    }
-    if (isNaN(+category_id)) {
-      res.status(400).json({
-        message: `Invalid ID`,
-        code: "INVALID_ID",
-      });
-    }
-    const num_category_id = +category_id;
     try {
+      if (!title || !content || !category_id) {
+        res.status(400).json({
+          message: `Missing Data`,
+          code: "MISSING_DATA",
+        });
+      }
+      if (isNaN(+category_id)) {
+        res.status(400).json({
+          message: `Invalid ID`,
+          code: "INVALID_ID",
+        });
+      }
+      const num_category_id = +category_id;
       const create_post = await model.create_post(
         title,
         content,
@@ -69,14 +69,23 @@ export default class controller {
     }
   };
   static get_post_id = async (req: Request<{ id: string }>, res: Response) => {
-    const { id } = req.params;
+    const id = req.params.id;
+    console.log(id);
     try {
+      if (id === ":id") {
+        res.status(400).json({
+          message: `Missing ID`,
+          code: "MISSING_ID",
+        });
+      }
+
       if (isNaN(+id)) {
         res.status(400).json({
           message: `Invalid ID`,
           code: "INVALID_ID",
         });
       }
+
       const post_id = +id;
 
       const existing_post = await model.get_post_id(post_id);
@@ -103,27 +112,27 @@ export default class controller {
     req: Request<{ id: string }, {}, Partial_Req_Body>,
     res: Response
   ) => {
-    const { id } = req.params;
+    const id = req.params.id;
     const { title, content, category_id } = req.body;
 
-    if (!id || isNaN(+id)) {
-      res.status(400).json({
-        message: "Invalid post ID",
-        code: "INVALID_POST_ID",
-      });
-    }
-
-    const post_id = +id;
-
-    const num_category_id = category_id ? +category_id : undefined;
-
-    if (!title && !content && !category_id) {
-      res.status(400).json({
-        message: "Missing Data",
-        code: "MISSING_DATA",
-      });
-    }
     try {
+      if (id === ":id" || isNaN(+id)) {
+        res.status(400).json({
+          message: "Invalid post ID",
+          code: "INVALID_POST_ID",
+        });
+      }
+
+      const post_id = +id;
+
+      const num_category_id = category_id ? +category_id : undefined;
+
+      if (!title && !content && !category_id) {
+        res.status(400).json({
+          message: "Missing Data",
+          code: "MISSING_DATA",
+        });
+      }
       const update_post = await model.update_post(
         post_id,
         title,
@@ -153,14 +162,14 @@ export default class controller {
     res: Response
   ) => {
     const { title } = req.body;
-    if (!title) {
-      res.status(400).json({
-        message: "Missing Data",
-        code: "MISSING_DATA",
-      });
-    }
 
     try {
+      if (!title) {
+        res.status(400).json({
+          message: "Missing Data",
+          code: "MISSING_DATA",
+        });
+      }
       const deleting_post = await model.delete_post(title);
 
       if ("error" in deleting_post) {
