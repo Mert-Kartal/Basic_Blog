@@ -79,7 +79,7 @@ export default class model {
       throw new Error((error as Error).message);
     }
   };
-  static get_post_id = async (post_id: number) => {
+  static get_post_id = async (post_id: number): Promise<Post_Response> => {
     try {
       const exist_post = await db("post")
         .select("*")
