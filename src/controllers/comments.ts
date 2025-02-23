@@ -19,6 +19,7 @@ export default class controller {
           message: `Missing Data`,
           code: "MISSING_DATA",
         });
+        return;
       }
 
       if (isNaN(+post_id)) {
@@ -26,6 +27,7 @@ export default class controller {
           message: `Invalid ID`,
           code: "INVALID_ID",
         });
+        return;
       }
       const num_post_id = +post_id;
       const create_comment = await model.create_comment(
@@ -39,6 +41,7 @@ export default class controller {
           message: `No Comment Could Be Made `,
           code: "NO_COMMENT_MADE",
         });
+        return;
       }
 
       res.status(201).json({
@@ -78,6 +81,7 @@ export default class controller {
           message: `Missing ID`,
           code: "MISSING_ID",
         });
+        return;
       }
 
       if (isNaN(+id)) {
@@ -85,6 +89,7 @@ export default class controller {
           message: `Invalid ID`,
           code: "INVALID_ID",
         });
+        return;
       }
 
       const comment_id = +id;
@@ -95,6 +100,7 @@ export default class controller {
           message: existing_comment.error,
           code: existing_comment.code,
         });
+        return;
       }
       res.status(200).json({
         message: `Category Found`,
@@ -119,6 +125,7 @@ export default class controller {
           message: `Missing Data`,
           code: "MISSING_DATA",
         });
+        return;
       }
 
       if (isNaN(+id)) {
@@ -126,6 +133,7 @@ export default class controller {
           message: `Invalid Id`,
           code: "INVALID_ID",
         });
+        return;
       }
       const comment_id = +id;
       const update_comment = await model.update_comment(comment_id, content);
@@ -134,6 +142,7 @@ export default class controller {
           message: update_comment.error,
           code: update_comment.code,
         });
+        return;
       }
       res.status(200).json({
         message: `Successfully Updated`,
@@ -161,6 +170,7 @@ export default class controller {
           message: `Missing DATA`,
           code: "MISSING_DATA",
         });
+        return;
       }
 
       if (isNaN(+post_id)) {
@@ -168,6 +178,7 @@ export default class controller {
           message: `Invalid DATA`,
           code: "INVALID_DATA",
         });
+        return;
       }
       const num_post_id = +post_id;
       const delete_comment = await model.delete_comment(
@@ -181,6 +192,7 @@ export default class controller {
           message: delete_comment.error,
           code: delete_comment.code,
         });
+        return;
       }
 
       res.status(200).json({

@@ -21,12 +21,14 @@ export default class controller {
           message: `Missing Data`,
           code: "MISSING_DATA",
         });
+        return;
       }
       if (isNaN(+category_id)) {
         res.status(400).json({
           message: `Invalid ID`,
           code: "INVALID_ID",
         });
+        return;
       }
       const num_category_id = +category_id;
       const create_post = await model.create_post(
@@ -40,6 +42,7 @@ export default class controller {
           error: create_post.error,
           code: create_post.code,
         });
+        return;
       }
 
       res.status(201).json({
@@ -77,6 +80,7 @@ export default class controller {
           message: `Missing ID`,
           code: "MISSING_ID",
         });
+        return;
       }
 
       if (isNaN(+id)) {
@@ -84,6 +88,7 @@ export default class controller {
           message: `Invalid ID`,
           code: "INVALID_ID",
         });
+        return;
       }
 
       const post_id = +id;
@@ -95,6 +100,7 @@ export default class controller {
           message: existing_post.error,
           code: existing_post.code,
         });
+        return;
       }
 
       res.status(200).json({
@@ -121,6 +127,7 @@ export default class controller {
           message: "Invalid post ID",
           code: "INVALID_POST_ID",
         });
+        return;
       }
 
       const post_id = +id;
@@ -132,6 +139,7 @@ export default class controller {
           message: "Missing Data",
           code: "MISSING_DATA",
         });
+        return;
       }
       const update_post = await model.update_post(
         post_id,
@@ -145,6 +153,7 @@ export default class controller {
           message: update_post.error,
           code: update_post.code,
         });
+        return;
       }
 
       res.status(200).json({
@@ -169,6 +178,7 @@ export default class controller {
           message: "Missing Data",
           code: "MISSING_DATA",
         });
+        return;
       }
       const deleting_post = await model.delete_post(title);
 
@@ -177,6 +187,7 @@ export default class controller {
           message: deleting_post.error,
           code: deleting_post.code,
         });
+        return;
       }
       res.status(200).json({
         message: `Successfully deleted`,

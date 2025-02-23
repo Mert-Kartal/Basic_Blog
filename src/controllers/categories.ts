@@ -20,17 +20,16 @@ export default class controller {
           message: `Missing Data`,
           code: "MISSING_DATA",
         });
+        return;
       }
       const create_category = await model.create_category(name);
-
-      console.log(name);
-      console.log(create_category);
 
       if ("error" in create_category) {
         res.status(400).json({
           message: create_category.error,
           code: create_category.code,
         });
+        return;
       }
 
       res.status(201).json({
@@ -44,11 +43,10 @@ export default class controller {
       });
     }
   };
-
   static get_category = async (req: Request, res: Response) => {
     try {
       const all_categories = await model.get_categories();
-      console.log(all_categories);
+
       res.status(200).json({
         message: `Success`,
         data: all_categories,
@@ -60,19 +58,19 @@ export default class controller {
       });
     }
   };
-
   static get_category_id = async (
     req: Request<categoryReqParam>,
     res: Response
   ) => {
     const id = req.params.id;
-    console.log(id);
+
     try {
       if (id === ":id") {
         res.status(400).json({
           message: `Missing ID`,
           code: "MISSING_ID",
         });
+        return;
       }
 
       const category_id = +id;
@@ -81,6 +79,7 @@ export default class controller {
           message: `Invalid ID`,
           code: "INVALID_ID",
         });
+        return;
       }
       const existing_category = await model.get_categories_id(category_id);
 
@@ -89,6 +88,7 @@ export default class controller {
           message: existing_category.error,
           code: existing_category.code,
         });
+        return;
       }
       res.status(200).json({
         message: `Category Found`,
@@ -100,7 +100,6 @@ export default class controller {
       });
     }
   };
-
   static update_category = async (
     req: Request<categoryReqParam, {}, categoryReqBody>,
     res: Response
@@ -114,12 +113,14 @@ export default class controller {
           message: `Missing Data`,
           code: "MISSING_DATA",
         });
+        return;
       }
       if (isNaN(+id)) {
         res.status(400).json({
           message: `Invalid ID format`,
           code: "INVALID_ID",
         });
+        return;
       }
       const category_id = +id;
 
@@ -130,6 +131,7 @@ export default class controller {
           message: update_category.error,
           code: update_category.code,
         });
+        return;
       }
 
       res.status(200).json({
@@ -142,7 +144,6 @@ export default class controller {
       });
     }
   };
-
   static delete_category = async (
     req: Request<categoryReqParam>,
     res: Response
@@ -155,6 +156,7 @@ export default class controller {
           message: `Missing DATA`,
           code: "MISSING_DATA",
         });
+        return;
       }
 
       const deleting_category = await model.delete_categories(name);
@@ -164,6 +166,7 @@ export default class controller {
           message: deleting_category.error,
           code: deleting_category.code,
         });
+        return;
       }
 
       res.status(200).json({
