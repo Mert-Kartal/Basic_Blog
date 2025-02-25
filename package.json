@@ -2,7 +2,7 @@
   "name": "be-7734p",
   "version": "1.0.0",
   "type": "module",
-  "main": "index.js",
+  "main": "/dist/index.js",
   "scripts": {
     "build": "tsc",
     "start": "ts-node src/index.ts",

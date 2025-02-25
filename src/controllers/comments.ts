@@ -6,6 +6,11 @@ interface Create_comment {
   content: string;
   commenter_name: string;
 }
+
+interface Req_Query {
+  post_id?: string;
+  commenter?: string;
+}
 export default class controller {
   static create_comment = async (
     req: Request<{}, {}, Create_comment>,
@@ -55,9 +60,21 @@ export default class controller {
       });
     }
   };
-  static get_comment = async (req: Request, res: Response) => {
+  static get_comment = async (
+    req: Request<{}, {}, {}, Req_Query>,
+    res: Response
+  ) => {
+    let { post_id, commenter } = req.query;
     try {
-      const all_comments = await model.get_comments();
+      if (post_id && isNaN(+post_id)) {
+        res.status(400).json({
+          message: `Invalid Data `,
+          code: "INVALID_DATA",
+        });
+        return;
+      }
+      const num_post_id = post_id ? +post_id : undefined;
+      const all_comments = await model.get_comments(num_post_id, commenter);
       res.status(200).json({
         message: `Success`,
         data: all_comments,

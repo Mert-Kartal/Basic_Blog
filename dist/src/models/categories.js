@@ -31,13 +31,22 @@ export default class model {
             throw new Error(error.message);
         }
     };
-    static get_categories = async () => {
+    static get_categories = async (showDeleted = "false") => {
         try {
-            const all_categories = await db("category")
-                .select("ıd", "name", "created_at")
-                .whereNull("deleted_at")
-                .returning("*");
-            return all_categories;
+            let all_categories = db("category").select("*");
+            if (showDeleted === "false") {
+                all_categories = all_categories.whereNull("deleted_at");
+            }
+            else if (showDeleted === "onlyDeleted") {
+                all_categories = all_categories.whereNotNull("deleted_at");
+            }
+            if ((await all_categories).length === 0) {
+                return {
+                    error: "There are no categories to show",
+                    code: "NO_CATEGORY",
+                };
+            }
+            return await all_categories;
         }
         catch (error) {
             throw new Error(error.message);
@@ -46,8 +55,8 @@ export default class model {
     static get_categories_id = async (category_id) => {
         try {
             const existing_category = await db("category")
-                .select("ıd", "name")
-                .where({ ıd: category_id })
+                .select("id", "name")
+                .where({ id: category_id })
                 .whereNull("deleted_at")
                 .first();
             if (!existing_category) {
@@ -65,8 +74,8 @@ export default class model {
     static update_categories = async (category_id, category_name) => {
         try {
             const existing_category = await db("category")
-                .select("ıd", "name")
-                .where({ ıd: category_id })
+                .select("id", "name")
+                .where({ id: category_id })
                 .whereNull("deleted_at")
                 .first();
             if (!existing_category) {
@@ -82,7 +91,7 @@ export default class model {
                 };
             }
             const existing_category_name = await db("category")
-                .select("ıd", "name")
+                .select("id", "name")
                 .where({ name: category_name })
                 .whereNull("deleted_at")
                 .first();
@@ -93,7 +102,7 @@ export default class model {
                 };
             }
             const updated_category = await db("category")
-                .where({ ıd: category_id })
+                .where({ id: category_id })
                 .update({ name: category_name })
                 .returning("*");
             return updated_category[0];

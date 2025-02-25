@@ -70,11 +70,37 @@ export default class model {
       throw new Error((error as Error).message);
     }
   };
-  static get_posts = async (): Promise<Post_Content[]> => {
+  static get_posts = async (
+    category_id: number | undefined,
+    status: string,
+    showDeleted: string
+  ): Promise<Post_Content[] | Post_Error> => {
     try {
-      const all_post = await db("post").select("*").whereNull("deleted_at");
+      let all_post = db("post").select("*");
 
-      return all_post;
+      if (category_id) {
+        all_post = all_post.where({ category_id });
+      }
+
+      if (status === "published") {
+        all_post = all_post.whereNotNull("published_at");
+      } else if (status === "draft") {
+        all_post = all_post.whereNull("published_at");
+      }
+
+      if (showDeleted === "false") {
+        all_post = all_post.whereNull("deleted_at");
+      } else if (showDeleted === "onlyDeleted") {
+        all_post = all_post.whereNotNull("deleted_at");
+      }
+
+      if ((await all_post).length === 0) {
+        return {
+          error: "There are no post to show",
+          code: "NO_POST",
+        };
+      }
+      return await all_post;
     } catch (error) {
       throw new Error((error as Error).message);
     }
@@ -107,9 +133,10 @@ export default class model {
   };
   static update_post = async (
     post_id: number,
-    post_title?: string,
-    post_content?: string,
-    category_id?: number
+    title?: string,
+    content?: string,
+    category_id?: number,
+    publish?: boolean
   ): Promise<Post_Response> => {
     try {
       const exist_post = await db("post")
@@ -132,14 +159,18 @@ export default class model {
           code: "DELETED_POST",
         };
       }
+      const updateFields: Partial<Post_Content> = {
+        category_id,
+        title,
+        content,
+      };
 
+      if (publish === true) {
+        updateFields.published_at = new Date();
+      }
       const update_post = await db("post")
         .where({ id: post_id })
-        .update({
-          category_id: category_id,
-          title: post_title,
-          content: post_content,
-        })
+        .update(updateFields)
         .returning("*");
 
       return update_post[0];

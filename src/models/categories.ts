@@ -50,13 +50,25 @@ export default class model {
       throw new Error((error as Error).message);
     }
   };
-  static get_categories = async (): Promise<Category[]> => {
+  static get_categories = async (
+    showDeleted: string = "false"
+  ): Promise<Category[] | ErrorResponse> => {
     try {
-      const all_categories = await db("category")
-        .select("id", "name", "created_at")
-        .whereNull("deleted_at");
+      let all_categories = db("category").select("*");
 
-      return all_categories;
+      if (showDeleted === "false") {
+        all_categories = all_categories.whereNull("deleted_at");
+      } else if (showDeleted === "onlyDeleted") {
+        all_categories = all_categories.whereNotNull("deleted_at");
+      }
+      if ((await all_categories).length === 0) {
+        return {
+          error: "There are no categories to show",
+          code: "NO_CATEGORY",
+        };
+      }
+
+      return await all_categories;
     } catch (error) {
       throw new Error((error as Error).message);
     }

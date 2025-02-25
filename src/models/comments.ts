@@ -48,11 +48,26 @@ export default class model {
       throw new Error((error as Error).message);
     }
   };
-  static get_comments = async (): Promise<Comment_Content[]> => {
+  static get_comments = async (
+    post_id?: number,
+    commenter?: string
+  ): Promise<Comment_Content[] | Error_Comments> => {
     try {
-      const all_comments = await db("comment").select("*");
+      let all_comments = db("comment").select("*");
+      if (post_id) {
+        all_comments = all_comments.where({ post_id });
+      }
+      if (commenter) {
+        all_comments = all_comments.where({ commenter_name: commenter });
+      }
+      if ((await all_comments).length === 0) {
+        return {
+          error: "There are no comment to show",
+          code: "NO_COMMENT",
+        };
+      }
 
-      return all_comments;
+      return await all_comments;
     } catch (error) {
       throw new Error((error as Error).message);
     }
@@ -107,7 +122,7 @@ export default class model {
     post_id: number,
     content: string,
     commenter_name: string
-  ):Promise<Comment> => {
+  ): Promise<Comment> => {
     try {
       const exist_post = await db("post")
         .select("*")

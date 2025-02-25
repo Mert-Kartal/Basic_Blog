@@ -8,6 +8,9 @@ interface categoryReqParam {
   id: string;
 }
 
+interface categoryReqQuery {
+  showDeleted: "true" | "false" | "onlyDeleted";
+}
 export default class controller {
   static create_category = async (
     req: Request<{}, {}, categoryReqBody>,
@@ -43,9 +46,28 @@ export default class controller {
       });
     }
   };
-  static get_category = async (req: Request, res: Response) => {
+  static get_category = async (
+    req: Request<{}, {}, {}, categoryReqQuery>,
+    res: Response
+  ) => {
+    const { showDeleted = "false" } = req.query;
     try {
-      const all_categories = await model.get_categories();
+      if (!["true", "false", "onlyDeleted"].includes(showDeleted)) {
+        res.status(400).json({
+          message: "Invalid showDeleted value",
+          code: "INVALID_DATA",
+        });
+        return;
+      }
+      const all_categories = await model.get_categories(showDeleted);
+
+      if ("error" in all_categories) {
+        res.status(400).json({
+          message: all_categories.error,
+          code: all_categories.code,
+        });
+        return;
+      }
 
       res.status(200).json({
         message: `Success`,

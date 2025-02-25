@@ -6,8 +6,17 @@ interface Post_Request_Body {
   content: string;
   category_id: string;
 }
-
-type Partial_Req_Body = Partial<Post_Request_Body>;
+interface Post_Req_Query {
+  category?: string;
+  status?: "published" | "draft" | "all";
+  showDeleted?: "true" | "false" | "onlyDeleted";
+}
+interface Partial_Req_Body {
+  title?: string;
+  content?: string;
+  category_id?: string;
+  publish?: boolean;
+}
 export default class controller {
   static create_post = async (
     req: Request<{}, {}, Post_Request_Body>,
@@ -56,9 +65,33 @@ export default class controller {
       });
     }
   };
-  static get_posts = async (req: Request, res: Response) => {
+  static get_posts = async (
+    req: Request<{}, {}, {}, Post_Req_Query>,
+    res: Response
+  ) => {
+    const { category, status = "all", showDeleted = "false" } = req.query;
     try {
-      const all_posts = await model.get_posts();
+      if (
+        !["true", "false", "onlyDeleted"].includes(showDeleted) ||
+        !["published", "draft", "all"].includes(status) ||
+        (category && isNaN(+category))
+      ) {
+        res.status(400).json({
+          message: "Invalid data",
+          code: "INVALID_DATA",
+        });
+        return;
+      }
+      const category_id = category ? +category : undefined;
+      const all_posts = await model.get_posts(category_id, status, showDeleted);
+
+      if ("error" in all_posts) {
+        res.status(400).json({
+          message: all_posts.error,
+          code: all_posts.code,
+        });
+        return;
+      }
 
       res.status(200).json({
         message: "Success",
@@ -119,7 +152,7 @@ export default class controller {
     res: Response
   ) => {
     const id = req.params.id;
-    const { title, content, category_id } = req.body;
+    const { title, content, category_id, publish } = req.body;
 
     try {
       if (id === ":id" || isNaN(+id)) {
@@ -134,7 +167,7 @@ export default class controller {
 
       const num_category_id = category_id ? +category_id : undefined;
 
-      if (!title && !content && !category_id) {
+      if (!title && !content && !category_id && !publish) {
         res.status(400).json({
           message: "Missing Data",
           code: "MISSING_DATA",
@@ -145,7 +178,8 @@ export default class controller {
         post_id,
         title,
         content,
-        num_category_id
+        num_category_id,
+        publish
       );
 
       if ("error" in update_post) {
