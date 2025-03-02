@@ -1,0 +1,485 @@
+{
+	"info": {
+		"_postman_id": "fb30297d-4e45-43c1-b35d-d0b2d1868bc2",
+		"name": "Post",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "40517537"
+	},
+	"item": [
+		{
+			"name": "Create Post",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\":\"onlyjs\",\r\n    \"content\":\"teknoloji\",\r\n    \"category_id\":\"12\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/post",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"post"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Create Post",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\":\"mert\",\r\n    \"content\":\"mustafa\",\r\n    \"category_id\":\"5\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/post",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"post"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "181"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"b5-aprfCuQskQPBtssHUFbe8yquGXs\""
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 18 Feb 2025 06:33:32 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"CategoryPost Created\",\n    \"data\": {\n        \"ıd\": 6,\n        \"category_ıd\": 5,\n        \"title\": \"mert\",\n        \"content\": \"mustafa\",\n        \"created_at\": \"2025-02-18T06:33:32.826Z\",\n        \"published_at\": null,\n        \"deleted_at\": null\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Get Post",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/post?showDeleted=false",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"post"
+					],
+					"query": [
+						{
+							"key": "showDeleted",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get Post",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/post",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"post"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "743"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"2e7-IQ2prv46kGrQ8rZ7maPw+F0xk6k\""
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 18 Feb 2025 05:52:27 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Success\",\n    \"data\": [\n        {\n            \"ıd\": 1,\n            \"category_ıd\": 3,\n            \"title\": \"mert\",\n            \"content\": \"kartal\",\n            \"created_at\": \"2025-02-18T05:48:50.437Z\",\n            \"published_at\": null,\n            \"deleted_at\": null\n        },\n        {\n            \"ıd\": 2,\n            \"category_ıd\": 3,\n            \"title\": \"kartal\",\n            \"content\": \"mert\",\n            \"created_at\": \"2025-02-18T05:49:50.659Z\",\n            \"published_at\": null,\n            \"deleted_at\": null\n        },\n        {\n            \"ıd\": 3,\n            \"category_ıd\": 3,\n            \"title\": \"raziye\",\n            \"content\": \"kavurgacı\",\n            \"created_at\": \"2025-02-18T05:50:03.431Z\",\n            \"published_at\": null,\n            \"deleted_at\": null\n        },\n        {\n            \"ıd\": 4,\n            \"category_ıd\": 4,\n            \"title\": \"raziye\",\n            \"content\": \"kavurgacı\",\n            \"created_at\": \"2025-02-18T05:52:17.274Z\",\n            \"published_at\": null,\n            \"deleted_at\": null\n        },\n        {\n            \"ıd\": 5,\n            \"category_ıd\": 4,\n            \"title\": \"raziye\",\n            \"content\": \"kavurgacı\",\n            \"created_at\": \"2025-02-18T05:52:22.535Z\",\n            \"published_at\": null,\n            \"deleted_at\": null\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Get Post By ID",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/post/:id",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"post",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "8"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get Post By ID",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/post/:ıd",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"post",
+								":ıd"
+							],
+							"variable": [
+								{
+									"key": "ıd",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "176"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"b0-ajVaSEgZgbXGoSAapRvaZStGVKQ\""
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 18 Feb 2025 06:02:32 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Post Found\",\n    \"data\": {\n        \"ıd\": 5,\n        \"category_ıd\": 4,\n        \"title\": \"raziye\",\n        \"content\": \"kavurgacı\",\n        \"created_at\": \"2025-02-18T05:52:22.535Z\",\n        \"published_at\": null,\n        \"deleted_at\": null\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Update Post",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"category_id\":\"4\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/post/:id",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"post",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Update Post",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\":\"raziye 18\",\r\n    \"content\":\"kavurgacı\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/post/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"post",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "189"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"bd-YsXg38+Pduh0rtduzBcC42m5Zww\""
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 18 Feb 2025 06:35:50 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Successfully Updated\",\n    \"data\": {\n        \"ıd\": 1,\n        \"category_ıd\": 3,\n        \"title\": \"raziye 18\",\n        \"content\": \"kavurgacı\",\n        \"created_at\": \"2025-02-18T05:48:50.437Z\",\n        \"published_at\": null,\n        \"deleted_at\": null\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Delete Post",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\":\"mert\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/post",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"post"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Delete Post",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\":\"raziye 18\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/post",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"post"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "211"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"d3-Xuhrw4OK6N0ydlOODVNzQ728FCI\""
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 18 Feb 2025 06:50:23 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Successfully deleted\",\n    \"data\": {\n        \"ıd\": 5,\n        \"category_ıd\": 4,\n        \"title\": \"raziye 18\",\n        \"content\": \"kavurgacı\",\n        \"created_at\": \"2025-02-18T05:52:22.535Z\",\n        \"published_at\": null,\n        \"deleted_at\": \"2025-02-18T06:50:23.224Z\"\n    }\n}"
+				}
+			]
+		}
+	]
+}

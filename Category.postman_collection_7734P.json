@@ -1,0 +1,488 @@
+{
+	"info": {
+		"_postman_id": "85fa2f37-7123-496b-9ca5-17829b4fa5ec",
+		"name": "Category",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "40517537"
+	},
+	"item": [
+		{
+			"name": "Create Category",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"Whats'up\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/category",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"category"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Create Category",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"0nlyjs\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/category",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"category"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "122"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"7a-pQ5foHBGyuYGzch4wPY00PYssfo\""
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 15 Feb 2025 19:55:08 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Category Created\",\n    \"data\": {\n        \"ıd\": 13,\n        \"name\": \"0nlyjs\",\n        \"created_at\": \"2025-02-15T19:55:08.750Z\",\n        \"deleted_at\": null\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Get Category",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/category",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"category"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get Catgeory",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"0nlyjs\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/category",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"category"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "906"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"38a-+XOPl+P2oWT2eBPc3/xR4FLnp6w\""
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 15 Feb 2025 23:40:59 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Success\",\n    \"data\": [\n        {\n            \"ıd\": 1,\n            \"name\": \"merhaba\",\n            \"created_at\": \"2025-02-15T17:37:35.807Z\"\n        },\n        {\n            \"ıd\": 2,\n            \"name\": \"selam\",\n            \"created_at\": \"2025-02-15T17:49:21.416Z\"\n        },\n        {\n            \"ıd\": 3,\n            \"name\": \"mert\",\n            \"created_at\": \"2025-02-15T17:55:09.818Z\"\n        },\n        {\n            \"ıd\": 4,\n            \"name\": \"kartal\",\n            \"created_at\": \"2025-02-15T18:04:23.989Z\"\n        },\n        {\n            \"ıd\": 5,\n            \"name\": \"recep tekin\",\n            \"created_at\": \"2025-02-15T19:10:27.889Z\"\n        },\n        {\n            \"ıd\": 6,\n            \"name\": \"recep\",\n            \"created_at\": \"2025-02-15T19:25:38.695Z\"\n        },\n        {\n            \"ıd\": 7,\n            \"name\": \"10\",\n            \"created_at\": \"2025-02-15T19:25:47.853Z\"\n        },\n        {\n            \"ıd\": 8,\n            \"name\": \"abdulkadir\",\n            \"created_at\": \"2025-02-15T19:27:21.231Z\"\n        },\n        {\n            \"ıd\": 9,\n            \"name\": \"dbsfvjkdfv\",\n            \"created_at\": \"2025-02-15T19:31:13.922Z\"\n        },\n        {\n            \"ıd\": 10,\n            \"name\": \"pdfvnjmoıdfnv\",\n            \"created_at\": \"2025-02-15T19:33:26.154Z\"\n        },\n        {\n            \"ıd\": 11,\n            \"name\": \"onlyjs\",\n            \"created_at\": \"2025-02-15T19:44:17.379Z\"\n        },\n        {\n            \"ıd\": 12,\n            \"name\": \"Onlyjs\",\n            \"created_at\": \"2025-02-15T19:50:48.739Z\"\n        },\n        {\n            \"ıd\": 13,\n            \"name\": \"0nlyjs\",\n            \"created_at\": \"2025-02-15T19:55:08.750Z\"\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Get Category By ID",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/category/:id",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"category",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get Category Copy",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"0nlyjs\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/category/:ıd",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"category",
+								":ıd"
+							],
+							"variable": [
+								{
+									"key": "ıd",
+									"value": "12"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "62"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"3e-dr02xM5ja5E0yt+WaIeEA9RXsFg\""
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 15 Feb 2025 23:46:00 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Category Found\",\n    \"data\": {\n        \"ıd\": 12,\n        \"name\": \"Onlyjs\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Update Category",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"18\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/category/:id",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"category",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Update Category",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Whats'up\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/category/:ıd",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"category",
+								":ıd"
+							],
+							"variable": [
+								{
+									"key": "ıd",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "127"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"7f-TSQHRJr6glNkCdS2mLwaMNP/kyE\""
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 15 Feb 2025 23:50:19 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Successfully Updated\",\n    \"data\": {\n        \"ıd\": 1,\n        \"name\": \"Whats'up\",\n        \"created_at\": \"2025-02-15T17:37:35.807Z\",\n        \"deleted_at\": null\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Delete Category",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"18\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/category",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"category"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Delete Category",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"onlyjs\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/category/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"category",
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "148"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"94-4IY6cRTRlXUTg5/UHa1OKrq/e+k\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 16 Feb 2025 11:56:19 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Successfully deleted\",\n    \"data\": {\n        \"ıd\": 11,\n        \"name\": \"onlyjs\",\n        \"created_at\": \"2025-02-15T19:44:17.379Z\",\n        \"deleted_at\": \"2025-02-16T11:56:19.233Z\"\n    }\n}"
+				}
+			]
+		}
+	]
+}
